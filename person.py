@@ -1,77 +1,84 @@
 class Person:
-        @property
-        def name(self):
-                return self._name
+    _object_set = set()
 
-        @name.setter
-        def name(self, value):
-                if isinstance(value, str):
-                        self._name = value
+    @property
+    def object_set():
+        return [:]_object_set
 
-        @property
-        def birth_year(self):
-                return self._birth_year
+    @property
+    def name(self):
+            return self._name
 
-        @birth_year.setter
-        def birth_year(self, value):
-                if isinstance(value, int):
-                        self._birth_year = value
-                else:
-                        self._birth_year = 2013
+    @name.setter
+    def name(self, value):
+            if isinstance(value, str):
+                    self._name = value
 
-        @property
-        def gender(self):
-                return self._gender
+    @property
+    def birth_year(self):
+            return self._birth_year
 
-        @gender.setter
-        def gender(self, value):
-                if value == "M" or value == "F":
-                        self._gender = value
+    @birth_year.setter
+    def birth_year(self, value):
+            if isinstance(value, int):
+                    self._birth_year = value
+            else:
+                    self._birth_year = 2013
 
-        @property
-        def mother(self):
-                return self._mother
+    @property
+    def gender(self):
+            return self._gender
 
-        @staticmethod
-        def parentChecker(self, value):
-                return self is not value and type(value) == type(self)
+    @gender.setter
+    def gender(self, value):
+            if value == "M" or value == "F":
+                    self._gender = value
 
-        @staticmethod
-        def is_direct_successor(self, other):
-                return (other in self.children) or (self in other.children)
+    @property
+    def mother(self):
+            return self._mother
 
-        @mother.setter
-        def mother(self, value):
-                if parentChecker(self, value) and value.gender == "F":
-                        self._mother = value
+    @staticmethod
+    def parentChecker(self, value):
+            return self is not value and type(value) == type(self)
 
-        @property
-        def father(self):
-                return self._father
+    @staticmethod
+    def is_direct_successor(self, other):
+            return (other in self.children) or (self in other.children)
 
-        @father.setter
-        def father(self, value):
-                if parentChecker(self, value) and value.gender == "M":
-                        self._father = value
+    @mother.setter
+    def mother(self, value):
+            if parentChecker(self, value) and value.gender == "F":
+                    self._mother = value
 
-        def __init__(self, name="Unknown", birth_year=2013, gender="M"):
-                self.name = name
-                self.birth_year = birth_year
-                self.gender = gender
-                self._mother = None
-                self._father = None
-                self._brothers = list()
-                self._sisters = list()
+    @property
+    def father(self):
+            return self._father
 
-        def get_brothers(self):
-                return self._brothers
+    @father.setter
+    def father(self, value):
+            if parentChecker(self, value) and value.gender == "M":
+                    self._father = value
 
-        def get_sisters(self):
-                return self._sisters
+    def __init__(self, name="Unknown", birth_year=2013, gender="M"):
+            self.name = name
+            self.birth_year = birth_year
+            self.gender = gender
+            self._mother = None
+            self._father = None
+            self._brothers = list()
+            self._sisters = list()
+            Person._object_set.add(self)
 
-        def children(self):
-                returningSet = set()
-                for person in Person:
-                    if person.mother == self or person.father == self:
-                        returningSet.append(person)
-                return dict(returningSet)
+    def get_brothers(self):
+            return self._brothers
+
+    def get_sisters(self):
+            return self._sisters
+
+    def children(self):
+            returningSet = list()
+            for person in Person._object_set:
+                if person.mother == self or person.father == self:
+                    returningSet.append(person)
+            return returningSet
